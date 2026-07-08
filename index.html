@@ -3,127 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conversia MX | Sistema de ingresos en WhatsApp</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: Inter, Arial, sans-serif; background: #06110c; color: #ffffff; line-height: 1.5; }
-    a { color: inherit; text-decoration: none; }
-    .page { overflow: hidden; }
-
-    .hero {
-      min-height: 100vh;
-      padding: 32px 7vw 80px;
-      background:
-        radial-gradient(circle at 75% 20%, rgba(37, 211, 102, 0.25), transparent 35%),
-        radial-gradient(circle at 10% 80%, rgba(37, 211, 102, 0.12), transparent 30%),
-        linear-gradient(135deg, #06110c 0%, #081b12 60%, #020604 100%);
-      position: relative;
-    }
-
-    .nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 100px; position: relative; z-index: 3; }
-    .brand { display: flex; align-items: center; gap: 16px; font-weight: 800; letter-spacing: 2px; font-size: 22px; }
-    .logo { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(145deg, #0b5d38, #063c27); display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 0 40px rgba(37, 211, 102, 0.25); }
-    .nav-cta { padding: 12px 20px; border: 1px solid rgba(37, 211, 102, 0.4); border-radius: 999px; color: #dfffee; background: rgba(255,255,255,0.03); font-weight: 700; }
-
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
-    .eyebrow { color: #25d366; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
-    h1 { font-size: clamp(44px, 6vw, 82px); line-height: 0.98; letter-spacing: -3px; margin-bottom: 26px; }
-    h1 span { color: #25d366; }
-    .hero-copy { color: #c8d7ce; font-size: 21px; max-width: 620px; margin-bottom: 34px; }
-
-    .buttons { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
-    .btn-primary, .btn-secondary { padding: 15px 24px; border-radius: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: transform .2s ease, opacity .2s ease; }
-    .btn-primary:hover, .btn-secondary:hover, .nav-cta:hover { transform: translateY(-2px); opacity: .92; }
-    .btn-primary { background: #25d366; color: #031008; box-shadow: 0 12px 35px rgba(37, 211, 102, 0.28); }
-    .btn-secondary { border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.05); color: #ffffff; }
-
-    .trust-row { display: flex; gap: 24px; flex-wrap: wrap; color: #d9efe3; font-size: 15px; }
-    .trust-row div { display: flex; align-items: center; gap: 8px; }
-    .dot { width: 9px; height: 9px; background: #25d366; border-radius: 50%; box-shadow: 0 0 16px rgba(37, 211, 102, 0.8); }
-
-    .dashboard { border: 1px solid rgba(255,255,255,0.12); background: rgba(10, 25, 17, 0.82); backdrop-filter: blur(18px); border-radius: 28px; padding: 24px; box-shadow: 0 40px 100px rgba(0,0,0,0.45), 0 0 60px rgba(37, 211, 102, 0.12); transform: rotate(-2deg); }
-    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; color: #dfffee; }
-    .dash-title { font-weight: 800; }
-    .dash-pill { font-size: 12px; border: 1px solid rgba(37,211,102,0.25); border-radius: 999px; padding: 8px 10px; color: #a9f5c9; }
-    .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 16px; }
-    .metric, .panel, .card { border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.04); border-radius: 18px; padding: 18px; }
-    .metric-label { color: #9fb2a6; font-size: 13px; margin-bottom: 8px; }
-    .metric-number { font-size: 32px; font-weight: 900; }
-    .metric-change { color: #25d366; font-size: 13px; margin-top: 4px; }
-    .bar-chart { height: 110px; display: flex; gap: 8px; align-items: end; padding-top: 16px; }
-    .bar { flex: 1; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #25d366, rgba(37,211,102,0.18)); min-height: 22px; }
-    .activity { display: grid; gap: 10px; margin-top: 14px; }
-    .activity-item { display: flex; justify-content: space-between; gap: 14px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 12px; color: #dceee4; font-size: 13px; }
-
-    section { padding: 90px 7vw; }
-    .section-header { max-width: 760px; margin-bottom: 42px; }
-    h2 { font-size: clamp(34px, 4vw, 56px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 18px; }
-    .section-header p, .muted { color: #b9c9c0; font-size: 19px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .card { border-radius: 24px; padding: 28px; }
-    .card-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(37,211,102,0.14); color: #25d366; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
-    .card h3 { font-size: 22px; margin-bottom: 10px; }
-    .card p { color: #b9c9c0; }
-    .step { padding: 26px; border-radius: 24px; background: linear-gradient(180deg, rgba(37,211,102,0.09), rgba(255,255,255,0.03)); border: 1px solid rgba(37,211,102,0.16); }
-    .step-number { width: 36px; height: 36px; background: #25d366; color: #031008; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-bottom: 18px; }
-    .step h3 { margin-bottom: 8px; font-size: 20px; }
-    .step p { color: #b9c9c0; }
-
-    .cta-section { text-align: center; background: radial-gradient(circle at 50% 0%, rgba(37,211,102,0.18), transparent 38%), #030806; }
-    .cta-box { max-width: 880px; margin: 0 auto; border: 1px solid rgba(37,211,102,0.18); background: rgba(255,255,255,0.04); border-radius: 34px; padding: 54px 34px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
-    footer { padding: 32px 7vw; color: #809188; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-
-    @media (max-width: 900px) {
-      .hero-grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .nav { margin-bottom: 60px; }
-      .dashboard { transform: none; }
-      .metric-grid { grid-template-columns: 1fr; }
-      h1 { letter-spacing: -2px; }
-    }
-  </style>
+  <title>Conversia MX | Deja de perder clientes dentro de WhatsApp</title>
+  <meta name="description" content="Conversia MX ayuda a negocios a que sus consultas por WhatsApp reciban atención, queden organizadas y estén listas para seguimiento." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="page">
     <header class="hero" id="inicio">
       <nav class="nav">
-        <div class="brand">
+        <a class="brand" href="index.html">
           <div class="logo">CMX</div>
           <div>
             <div>CONVERSIA MX</div>
-            <div style="font-size: 12px; color: #25d366; letter-spacing: 2px; margin-top: 4px;">WHATSAPP REVENUE ENGINE</div>
+            <div class="brand-subtitle">ATENCIÓN Y SEGUIMIENTO EN WHATSAPP</div>
           </div>
+        </a>
+        <div class="nav-links">
+          <a href="como-funciona.html">Cómo funciona</a>
+          <a href="industrias.html">Industrias</a>
+          <a href="agencias.html">Agencias</a>
+          <a href="privacidad.html">Privacidad</a>
+          <a href="acceso-clientes.html">Acceso clientes</a>
         </div>
         <a class="nav-cta" href="https://wa.me/525516509699?text=Hola%2C%20quiero%20una%20demo%20de%20Conversia%20MX" target="_blank" rel="noopener">Solicitar demo</a>
       </nav>
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">Sistema de ingresos en WhatsApp</div>
-          <h1>Convierte tus mensajes de WhatsApp en <span>clientes</span>.</h1>
-          <p class="hero-copy">Respondemos al instante, capturamos datos y damos seguimiento automático para que ninguna oportunidad se pierda.</p>
+          <div class="eyebrow">Atención y seguimiento en WhatsApp</div>
+          <h1>Deja de perder clientes dentro de <span>WhatsApp</span>.</h1>
+          <p class="hero-copy">Conversia MX ayuda a que las consultas de tus clientes reciban atención, queden organizadas y estén listas para seguimiento.</p>
           <div class="buttons">
             <a class="btn-primary" href="https://wa.me/525516509699?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20funciona%20Conversia%20MX%20para%20mi%20negocio" target="_blank" rel="noopener">Ver cómo funciona →</a>
-            <a class="btn-secondary" href="#proceso">Conocer el sistema</a>
+            <a class="btn-secondary" href="como-funciona.html">Conocer el sistema</a>
           </div>
           <div class="trust-row">
-            <div><span class="dot"></span> Meta verificado</div>
             <div><span class="dot"></span> Servicio administrado</div>
             <div><span class="dot"></span> Español / Inglés</div>
+            <div><span class="dot"></span> Enfoque en seguimiento</div>
           </div>
         </div>
 
         <div class="dashboard">
           <div class="dash-header">
             <div class="dash-title">Panel Conversia MX</div>
-            <div class="dash-pill">Últimos 7 días</div>
+            <div class="dash-pill">Vista de ejemplo</div>
           </div>
           <div class="metric-grid">
-            <div class="metric"><div class="metric-label">Conversaciones</div><div class="metric-number">1,248</div><div class="metric-change">+28% vs semana anterior</div></div>
-            <div class="metric"><div class="metric-label">Contactos</div><div class="metric-number">896</div><div class="metric-change">+25% capturados</div></div>
-            <div class="metric"><div class="metric-label">Oportunidades</div><div class="metric-number">236</div><div class="metric-change">+42% seguimiento</div></div>
-            <div class="metric"><div class="metric-label">Seguimientos</div><div class="metric-number">74</div><div class="metric-change">activos esta semana</div></div>
+            <div class="metric"><div class="metric-label">Conversaciones atendidas</div><div class="metric-number">148</div><div class="metric-change">clientes con atención inicial</div></div>
+            <div class="metric"><div class="metric-label">Contactos organizados</div><div class="metric-number">86</div><div class="metric-change">listos para revisar</div></div>
+            <div class="metric"><div class="metric-label">Oportunidades</div><div class="metric-number">37</div><div class="metric-change">requieren seguimiento</div></div>
+            <div class="metric"><div class="metric-label">Seguimientos</div><div class="metric-number">24</div><div class="metric-change">activos esta semana</div></div>
           </div>
           <div class="panel">
             <div class="metric-label">Conversaciones por día</div>
@@ -132,9 +62,9 @@
             </div>
           </div>
           <div class="activity">
-            <div class="activity-item"><span>María González: “Me interesa una demo”</span><span>10:42</span></div>
-            <div class="activity-item"><span>Carlos Ramírez: “¿Tienen precios?”</span><span>10:38</span></div>
-            <div class="activity-item"><span>Ana López: seguimiento enviado</span><span>10:21</span></div>
+            <div class="activity-item"><span>María: “Me interesa una demo”</span><span>10:42</span></div>
+            <div class="activity-item"><span>Carlos: “¿Tienen precios?”</span><span>10:38</span></div>
+            <div class="activity-item"><span>Ana: lista para seguimiento</span><span>10:21</span></div>
           </div>
         </div>
       </div>
@@ -143,55 +73,69 @@
     <section id="problema">
       <div class="section-header">
         <h2>La mayoría de los negocios pierde clientes en WhatsApp sin darse cuenta.</h2>
-        <p>El problema no es falta de interés. El problema es responder tarde, olvidar conversaciones y no dar seguimiento.</p>
+        <p>El problema no es falta de interés. El problema es responder tarde, olvidar conversaciones y no dar seguimiento con claridad.</p>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="card-icon">⏱</div><h3>Respuestas tarde</h3><p>Cuando el cliente espera demasiado, normalmente termina escribiéndole a otro negocio.</p></div>
-        <div class="card"><div class="card-icon">📋</div><h3>Datos desordenados</h3><p>Nombre, interés, número y resumen quedan perdidos entre conversaciones.</p></div>
-        <div class="card"><div class="card-icon">🔁</div><h3>Sin seguimiento</h3><p>Muchos interesados no compran en el primer mensaje. El seguimiento es donde se recuperan oportunidades.</p></div>
+        <div class="card"><div class="card-icon">⏱</div><h3>Clientes esperando</h3><p>Tu cliente no sabe que estás ocupado. Solo sabe que nadie respondió.</p></div>
+        <div class="card"><div class="card-icon">📋</div><h3>Información desordenada</h3><p>Interés, contexto y siguiente paso quedan perdidos entre mensajes.</p></div>
+        <div class="card"><div class="card-icon">🔁</div><h3>Seguimiento manual</h3><p>Cuando el equipo vuelve a WhatsApp, muchas veces tiene que empezar desde cero.</p></div>
+      </div>
+    </section>
+
+    <section id="frase">
+      <div class="split">
+        <div class="quote-card">
+          <p>Cuando vuelves a WhatsApp, no encuentras mensajes pendientes. Encuentras clientes atendidos y listos para seguimiento.</p>
+        </div>
+        <div>
+          <div class="section-header" style="margin-bottom: 0;">
+            <h2>Menos caos. Más contexto.</h2>
+            <p>Conversia MX ayuda a que cada consulta importante tenga una atención inicial, información organizada y un siguiente paso más claro para tu equipo.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="proceso">
       <div class="section-header">
-        <h2>Un flujo completo para captar, organizar y convertir.</h2>
-        <p>Conversia MX convierte WhatsApp en un sistema de atención y seguimiento para tu negocio.</p>
+        <h2>Un flujo completo para atender, organizar y avanzar.</h2>
+        <p>Diseñado para negocios que reciben prospectos desde WhatsApp, anuncios, redes sociales o su sitio web.</p>
       </div>
       <div class="grid-4">
-        <div class="step"><div class="step-number">1</div><h3>El cliente escribe</h3><p>Desde Facebook, Google, QR, anuncio o tu página web.</p></div>
-        <div class="step"><div class="step-number">2</div><h3>Recibe respuesta</h3><p>Tu negocio responde al instante con una experiencia profesional.</p></div>
-        <div class="step"><div class="step-number">3</div><h3>Se capturan datos</h3><p>Nombre, número, interés y resumen quedan registrados.</p></div>
-        <div class="step"><div class="step-number">4</div><h3>Se da seguimiento</h3><p>Si deja de responder, el sistema puede reactivar la conversación.</p></div>
+        <div class="step"><div class="step-number">1</div><h3>El cliente escribe</h3><p>Desde un anuncio, red social, QR, sitio web o WhatsApp.</p></div>
+        <div class="step"><div class="step-number">2</div><h3>Recibe atención</h3><p>La consulta recibe una respuesta profesional desde el primer momento.</p></div>
+        <div class="step"><div class="step-number">3</div><h3>La información se organiza</h3><p>Se recopila lo importante para entender qué busca el cliente.</p></div>
+        <div class="step"><div class="step-number">4</div><h3>Tu equipo da seguimiento</h3><p>Llegas con contexto para atender oportunidades reales.</p></div>
       </div>
     </section>
 
     <section id="industrias">
       <div class="section-header">
-        <h2>Diseñado para negocios que viven de la atención rápida.</h2>
-        <p>Funciona para cualquier negocio que reciba clientes por WhatsApp.</p>
+        <h2>Para negocios que viven de la atención rápida.</h2>
+        <p>Conversia MX funciona para empresas que reciben consultas y necesitan responder con orden, claridad y seguimiento.</p>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="card-icon">🏠</div><h3>Inmobiliarias</h3><p>Filtra interesados, guarda contactos y da seguimiento a compradores potenciales.</p></div>
-        <div class="card"><div class="card-icon">🏥</div><h3>Clínicas</h3><p>Confirma citas, envía recordatorios y reduce pacientes que no llegan.</p></div>
-        <div class="card"><div class="card-icon">🛍</div><h3>Negocios locales</h3><p>Responde preguntas frecuentes, capta datos y mantiene conversaciones activas.</p></div>
+        <div class="card"><div class="card-icon">🏠</div><h3>Inmobiliarias</h3><p>Organiza interesados, preguntas sobre propiedades y solicitudes de seguimiento.</p></div>
+        <div class="card"><div class="card-icon">🏥</div><h3>Clínicas</h3><p>Atiende consultas iniciales, ubicaciones, horarios y solicitudes de cita.</p></div>
+        <div class="card"><div class="card-icon">🛠</div><h3>Servicios locales</h3><p>Ayuda a ordenar cotizaciones, disponibilidad y datos del cliente.</p></div>
       </div>
     </section>
 
     <section id="control">
       <div class="section-header">
-        <h2>No vendemos solo automatización. Instalamos control.</h2>
-        <p>Cada conversación queda visible, organizada y lista para seguimiento.</p>
+        <h2>No se trata solo de responder mensajes. Se trata de llegar con contexto.</h2>
+        <p>Cada conversación debe quedar clara, organizada y lista para seguimiento.</p>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="card-icon">⚡</div><h3>Respuesta inmediata</h3><p>Tu negocio atiende al cliente en el momento exacto en que muestra interés.</p></div>
-        <div class="card"><div class="card-icon">👥</div><h3>CRM estructurado</h3><p>Cada contacto queda guardado con estado, interés, resumen y seguimiento.</p></div>
-        <div class="card"><div class="card-icon">📈</div><h3>Seguimiento automático</h3><p>Reactiva clientes que dejaron de responder y recupera oportunidades.</p></div>
+        <div class="card"><div class="card-icon">⚡</div><h3>Atención inmediata</h3><p>Tu negocio atiende al cliente en el momento exacto en que muestra interés.</p></div>
+        <div class="card"><div class="card-icon">👥</div><h3>Información organizada</h3><p>Cada contacto queda con interés, contexto y siguiente paso más claro.</p></div>
+        <div class="card"><div class="card-icon">📈</div><h3>Seguimiento claro</h3><p>Tu equipo puede enfocarse en oportunidades reales, no en empezar cada conversación desde cero.</p></div>
       </div>
     </section>
 
     <section id="demo" class="cta-section">
       <div class="cta-box">
-        <h2>Si recibes mensajes y no todos se convierten en clientes, aquí es donde lo solucionamos.</h2>
+        <h2>Si recibes mensajes y no todos avanzan, aquí es donde lo solucionamos.</h2>
         <p class="muted" style="margin: 18px auto 28px; max-width: 650px;">Te mostramos cómo se vería Conversia MX aplicado a tu negocio.</p>
         <div class="buttons" style="justify-content: center; margin-bottom: 0;">
           <a class="btn-primary" href="https://wa.me/525516509699?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Conversia%20MX" target="_blank" rel="noopener">Solicitar demo por WhatsApp →</a>
@@ -202,7 +146,7 @@
 
     <footer>
       <div>© Conversia MX</div>
-      <div>Sistema de ingresos en WhatsApp para negocios modernos.</div>
+      <div>Atención y seguimiento en WhatsApp para negocios modernos.</div>
     </footer>
   </div>
 
